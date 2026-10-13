@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.Insets;
 import android.os.Bundle;
+import android.os.Build;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
@@ -17,9 +19,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,9 +45,6 @@ public final class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         database = new BookkeepingDatabase(this);
         selectedMonth = new SimpleDateFormat("yyyy-MM", Locale.US).format(new Date());
-        getWindow().setStatusBarColor(BACKGROUND);
-        getWindow().setNavigationBarColor(BACKGROUND);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(buildScreen());
         refreshEntries();
     }
@@ -56,11 +55,31 @@ public final class MainActivity extends Activity {
         super.onDestroy();
     }
 
+    @SuppressWarnings("deprecation")
     private View buildScreen() {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(BACKGROUND);
         root.setPadding(dp(22), dp(12), dp(22), dp(14));
+        int leftPadding = root.getPaddingLeft();
+        int topPadding = root.getPaddingTop();
+        int rightPadding = root.getPaddingRight();
+        int bottomPadding = root.getPaddingBottom();
+        root.setOnApplyWindowInsetsListener((view, insets) -> {
+            int topInset;
+            int bottomInset;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                Insets systemBars = insets.getInsets(android.view.WindowInsets.Type.systemBars());
+                topInset = systemBars.top;
+                bottomInset = systemBars.bottom;
+            } else {
+                topInset = insets.getSystemWindowInsetTop();
+                bottomInset = insets.getSystemWindowInsetBottom();
+            }
+            view.setPadding(leftPadding, topPadding + topInset,
+                    rightPadding, bottomPadding + bottomInset);
+            return insets;
+        });
 
         LinearLayout header = new LinearLayout(this);
         header.setGravity(Gravity.CENTER_VERTICAL);
@@ -203,6 +222,8 @@ public final class MainActivity extends Activity {
         typeGroup.setOrientation(RadioGroup.HORIZONTAL);
         RadioButton expenseOption = radio("支出");
         RadioButton incomeOption = radio("收入");
+        expenseOption.setId(View.generateViewId());
+        incomeOption.setId(View.generateViewId());
         typeGroup.addView(expenseOption, new RadioGroup.LayoutParams(0, -2, 1));
         typeGroup.addView(incomeOption, new RadioGroup.LayoutParams(0, -2, 1));
         expenseOption.setChecked(true);
@@ -214,6 +235,12 @@ public final class MainActivity extends Activity {
         EditText categoryInput = input("分类，例如 餐饮、交通、工资", InputType.TYPE_CLASS_TEXT
                 | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         categoryInput.setText("餐饮");
+        typeGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            String current = categoryInput.getText().toString();
+            if (current.equals("餐饮") || current.equals("工资")) {
+                categoryInput.setText(checkedId == incomeOption.getId() ? "工资" : "餐饮");
+            }
+        });
         form.addView(categoryInput, fieldParams());
         EditText noteInput = input("备注（选填）", InputType.TYPE_CLASS_TEXT
                 | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
@@ -302,7 +329,10 @@ public final class MainActivity extends Activity {
     }
 
     private String money(long cents) {
-        return String.format(Locale.US, "¥%,d.%02d", cents / 100, cents % 100);
+        BigInteger absoluteCents = BigInteger.valueOf(cents).abs();
+        BigInteger[] units = absoluteCents.divideAndRemainder(BigInteger.valueOf(100));
+        return String.format(Locale.US, "%s¥%,d.%02d", cents < 0 ? "−" : "",
+                units[0].longValue(), units[1].intValue());
     }
 
     private int dp(int value) {

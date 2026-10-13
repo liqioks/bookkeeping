@@ -10,8 +10,8 @@
 
 ## 构建
 
-使用 Android Studio 打开项目并运行 `app`，或在安装 Android SDK、Gradle 的环境中运行：
+使用 Android Studio 打开项目并运行 `app`，或在安装 Android SDK 的环境中运行：
 
 ```sh
-gradle assembleDebug
+./gradlew assembleDebug
 ```
