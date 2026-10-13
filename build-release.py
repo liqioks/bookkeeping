@@ -21,16 +21,16 @@ KEYTOOL = JDK / 'bin' / 'keytool.exe'
 BUILD_TOOLS = SDK / 'build-tools' / '36.0.0'
 # Node 入口用当前进程可执行目录推断，避免写死用户名
 NODE = _pick('NODE_EXE',
-             r'C:/Users/Administrator/.workbuddy/binaries/node/versions/22.22.2-6/node',
-             r'C:/Users/liqio/.workbuddy/binaries/node/versions/22.22.2-6/node')
+             r'C:/Users/Administrator/.workbuddy/binaries/node/versions/22.22.2-6/node.exe',
+             r'C:/Users/liqio/.workbuddy/binaries/node/versions/22.22.2-6/node.exe')
 
 KS_DIR = ROOT / 'keystore'
 KS = KS_DIR / 'dagongr-release.jks'
 PROPS = ROOT / 'android' / 'keystore.properties'
 GRADLE = ROOT / 'android' / 'app' / 'build.gradle'
 ALIAS = 'dagongr'
-VERSION_NAME = '1.0.12'
-VERSION_CODE = 13
+VERSION_NAME = '1.0.13'
+VERSION_CODE = 14
 
 env = dict(os.environ)
 env['JAVA_HOME'] = str(JDK)
