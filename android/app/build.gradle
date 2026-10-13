@@ -18,8 +18,8 @@ android {
         applicationId "com.dagongr.ledger"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 7
-        versionName "1.0.6"
+        versionCode 13
+        versionName "1.0.12"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -29,15 +29,21 @@ android {
     }
     signingConfigs {
         release {
-            storeFile rootProject.file(keystoreProps['storeFile'])
-            storePassword keystoreProps['storePassword']
-            keyAlias keystoreProps['keyAlias']
-            keyPassword keystoreProps['keyPassword']
+            // keystore.properties 不在仓库里（含密钥口令，已 gitignore）。
+            // 未提供时不能直接 rootProject.file(null) —— 那会抛 "Cannot convert 'null' to File"
+            // 导致连 debug 构建都跑不起来。这里做存在性保护，只有真要打 release 时才需要它。
+            if (keystoreProps['storeFile']) {
+                storeFile rootProject.file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
         }
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            // 没有签名配置时退回 debug 签名，保证 assembleRelease 至少能出包（不是正式签名，仅供本地验证）
+            signingConfig keystoreProps['storeFile'] ? signingConfigs.release : signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

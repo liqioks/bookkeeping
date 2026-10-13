@@ -1,14 +1,34 @@
 import subprocess, os, sys
+from pathlib import Path
 
-ROOT = r'E:\dagongrProject'
-NODE = r'C:/Users/liqio/.workbuddy/binaries/node/versions/22.22.2-6/node'
+ROOT = Path(__file__).resolve().parent
+# 工具链路径：优先取环境变量，其次用本机约定目录（兼容多台机器，不再写死盘符）
+def _pick(env_key, *cands):
+    v = os.environ.get(env_key)
+    if v and Path(v).exists():
+        return str(Path(v))
+    for c in cands:
+        if Path(c).exists():
+            return c
+    return cands[0]
+
+JDK = _pick('JAVA_HOME', r'D:\app\jdk21', r'E:\app\jdk21')
+SDK = _pick('ANDROID_SDK_ROOT', r'D:\app\android-sdk', r'E:\app\android-sdk')
+NODE = _pick('NODE_EXE',
+             r'C:/Users/Administrator/.workbuddy/binaries/node/versions/22.22.2-6/node',
+             r'C:/Users/liqio/.workbuddy/binaries/node/versions/22.22.2-6/node')
 PY = sys.executable
+ROOT_S = str(ROOT)
 
 env = dict(os.environ)
-env['JAVA_HOME'] = r'E:\app\jdk21'
-env['ANDROID_HOME'] = r'E:\app\android-sdk'
-env['ANDROID_SDK_ROOT'] = r'E:\app\android-sdk'
-env['PATH'] = r'E:\app\jdk21\bin;' + env.get('PATH', '')
+env['JAVA_HOME'] = JDK
+env['ANDROID_HOME'] = SDK
+env['ANDROID_SDK_ROOT'] = SDK
+env['PATH'] = os.path.join(JDK, 'bin') + ';' + env.get('PATH', '')
+
+print('JDK        :', JDK)
+print('Android SDK:', SDK)
+print('工程根目录 :', ROOT_S)
 
 def run(args, cwd, label, timeout=1800, extra_env=None):
     print('=' * 20, label, '=' * 20)
@@ -28,16 +48,16 @@ def run(args, cwd, label, timeout=1800, extra_env=None):
     return p.returncode
 
 # 1) 源页面 -> www（含 App 适配：去注入脚本、补 viewport-fit）
-run([PY, 'prepare-page.py'], ROOT, '1/3 同步页面到 www')
+run([PY, os.path.join(ROOT_S, 'prepare-page.py')], ROOT_S, '1/3 同步页面到 www')
 
 # 2) www -> android/app/src/main/assets/public （sync 同时会把新插件注册进原生工程）
 #    注：本机环境的「安全删除」注入会让 CLI 的清理步骤超时，这里单独关掉它
-run([NODE, 'node_modules/@capacitor/cli/bin/capacitor', 'sync', 'android'], ROOT,
+run([NODE, 'node_modules/@capacitor/cli/bin/capacitor', 'sync', 'android'], ROOT_S,
     '2/3 同步资源与插件到 Android',
     extra_env={'NODE_OPTIONS': '', 'CODEBUDDY_SAFE_DELETE_ENABLED': '0'})
 
 # 3) 构建 Debug APK
-proj = os.path.join(ROOT, 'android')
+proj = os.path.join(ROOT_S, 'android')
 rc = run(['cmd', '/c', 'gradlew.bat', 'assembleDebug', '--no-daemon'], proj, '3/3 构建 APK')
 
 # 4) 产物清单
@@ -52,7 +72,7 @@ else:
 
 # 5) 复制到工程根目录，方便直接取用
 src = os.path.join(apk_dir, 'app-debug.apk')
-dst = os.path.join(ROOT, '打工人小账本-v1.0-debug.apk')
+dst = os.path.join(ROOT_S, '打工人小账本-v1.0-debug.apk')
 if os.path.isfile(src):
     import shutil
     shutil.copy2(src, dst)

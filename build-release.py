@@ -3,24 +3,44 @@
 import subprocess, os, sys, secrets
 from pathlib import Path
 
-ROOT = Path(r'E:\dagongrProject')
-JDK = Path(r'E:\app\jdk21')
+ROOT = Path(__file__).resolve().parent
+# 工具链路径：优先取环境变量，其次用本机约定目录（兼容多台机器，不再写死盘符）
+def _pick(env_key, *cands):
+    v = os.environ.get(env_key)
+    if v and Path(v).exists():
+        return Path(v)
+    for c in cands:
+        p = Path(c)
+        if p.exists():
+            return p
+    return Path(cands[0])
+
+JDK = _pick('JAVA_HOME', r'D:\app\jdk21', r'E:\app\jdk21')
+SDK = _pick('ANDROID_SDK_ROOT', r'D:\app\android-sdk', r'E:\app\android-sdk')
 KEYTOOL = JDK / 'bin' / 'keytool.exe'
-BUILD_TOOLS = Path(r'E:\app\android-sdk\build-tools\36.0.0')
-NODE = r'C:/Users/liqio/.workbuddy/binaries/node/versions/22.22.2-6/node'
+BUILD_TOOLS = SDK / 'build-tools' / '36.0.0'
+# Node 入口用当前进程可执行目录推断，避免写死用户名
+NODE = _pick('NODE_EXE',
+             r'C:/Users/Administrator/.workbuddy/binaries/node/versions/22.22.2-6/node',
+             r'C:/Users/liqio/.workbuddy/binaries/node/versions/22.22.2-6/node')
+
 KS_DIR = ROOT / 'keystore'
 KS = KS_DIR / 'dagongr-release.jks'
 PROPS = ROOT / 'android' / 'keystore.properties'
 GRADLE = ROOT / 'android' / 'app' / 'build.gradle'
 ALIAS = 'dagongr'
-VERSION_NAME = '1.0.6'
-VERSION_CODE = 7
+VERSION_NAME = '1.0.12'
+VERSION_CODE = 13
 
 env = dict(os.environ)
 env['JAVA_HOME'] = str(JDK)
-env['ANDROID_HOME'] = r'E:\app\android-sdk'
-env['ANDROID_SDK_ROOT'] = r'E:\app\android-sdk'
+env['ANDROID_HOME'] = str(SDK)
+env['ANDROID_SDK_ROOT'] = str(SDK)
 env['PATH'] = str(JDK / 'bin') + ';' + env.get('PATH', '')
+
+print('JDK        :', JDK)
+print('Android SDK:', SDK)
+print('工程根目录 :', ROOT)
 
 
 def run(args, cwd=None, timeout=3600, extra_env=None):

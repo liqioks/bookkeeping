@@ -482,6 +482,30 @@
   .datarow{display:flex; flex-wrap:wrap; gap:9px;}
   .datarow .btn{flex:1 1 150px;}
   .datatip{margin-top:11px; font-size:12px; line-height:1.65; color:var(--ink-soft);}
+
+  /* ---------- 驾驶舱：今日消费额度卡 ---------- */
+  .budgetcard{margin-top:14px;}
+  /* 大号数字：绿=未超额、红=已超额；颜色由 JS 切 class，不写死 */
+  .budget-hero{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap; margin:12px 0 2px;}
+  .budget-num{font-size:38px; font-weight:800; line-height:1.05; letter-spacing:-.5px; transition:color .25s;}
+  .budget-num.ok{color:var(--green);}
+  .budget-num.over{color:#D6453C;}
+  .budget-num .unit{font-size:15px; font-weight:600; margin-left:4px; opacity:.75;}
+  .budget-side{font-size:12.5px; color:var(--ink-soft); text-align:right; line-height:1.6;}
+  /* 进度条：绿→红，超额部分整条变红 */
+  .budget-bar{height:11px; border-radius:7px; background:var(--mint-soft); overflow:hidden; margin:12px 0 8px;}
+  .budget-bar i{display:block; height:100%; width:0%; border-radius:7px; transition:width .35s ease, background .25s;}
+  .budget-bar i.ok{background:linear-gradient(90deg,#7BCFA4,var(--green));}
+  .budget-bar i.over{background:linear-gradient(90deg,#F08A5D,#D6453C);}
+  .budget-status{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; border-radius:8px; padding:4px 10px;}
+  .budget-status.ok{background:rgba(91,191,138,.14); color:#368765;}
+  .budget-status.over{background:rgba(214,69,60,.12); color:#B53A2E;}
+  .budget-set{display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-top:13px; padding-top:13px; border-top:1px dashed var(--line);}
+  .budget-set label{font-size:13px; color:var(--ink-soft); white-space:nowrap;}
+  .budget-set input{flex:1 1 130px; min-width:110px; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:9px 12px; font-size:15px; color:var(--ink); font-family:inherit;}
+  .budget-set input:focus{outline:none; border-color:var(--mint-deep); background:#fff;}
+  .budget-set .btn{flex:0 0 auto;}
+  .budget-mute{font-size:12px; color:var(--ink-soft); margin-top:9px; display:flex; align-items:center; gap:6px;}
   .bottomtab{display:none;}
   @media(max-width:768px){
     .app{display:block;}
@@ -643,6 +667,7 @@
     <button data-page-node-id="LI1tKgXPA8pL5G4BMN6DbA" data-nav="findings"><svg data-page-node-id="fHWOrUtIczyifjz7dsFgTW" fill="none" stroke="#7C8A99" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path data-page-node-id="aacP9NLDLgLfTHGTrh9eEV" d="M9 18h6M10 21h4"/><path data-page-node-id="4vdNnuyBz3CFFqzHI2QkYT" d="M12 3a6 6 0 0 0-4 10c1 1 1 2 1 3h6c0-1 0-2 1-3a6 6 0 0 0-4-10z"/></svg><!--pnid:kyS10KAUMV37vOwLoJpkTZ-->有趣发现</button>
     <div data-page-node-id="ungF1HCC3Sm8UoZFrIWpkO" class="spacer"></div>
     <button data-page-node-id="navData00000000001" class="whoami" id="navData" title="数据备份与迁移"><svg data-page-node-id="navDataIc000000001" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path data-page-node-id="navDataP0000000001" d="M12 3v12m0 0l-4-4m4 4l4-4"/><path data-page-node-id="navDataP0000000002" d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg><span data-page-node-id="navDataTx000000001">数据备份</span></button>
+    <button data-page-node-id="navSwitchUser00001" class="whoami" id="navSwitchUser" title="切换用户"><svg data-page-node-id="navSwitchUserIc001" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path data-page-node-id="navSwitchUserP0001" d="M16 3h5v5"/><path data-page-node-id="navSwitchUserP0002" d="M21 3l-7 7"/><path data-page-node-id="navSwitchUserP0003" d="M8 21H3v-5"/><path data-page-node-id="navSwitchUserP0004" d="M3 21l7-7"/></svg><span data-page-node-id="navSwitchUserTx001">切换用户</span></button>
     <button data-page-node-id="1UEcfVkUhaXDk8qIPWgwJg" class="whoami" id="whoami" title="切换成员">
       <span data-page-node-id="IhWSaSSU63i97iozMK649W" class="dot" id="whoamiDot"><!--pnid:cRgqHaigJlqQSsNoxhIZlB-->我</span><span data-page-node-id="VUmMB8G2BIw48ILP55pZSk" id="whoamiName"><!--pnid:QNFcI3KR1HnPojLcZXCmWH-->我</span>
       <svg data-page-node-id="QiYmBLmCA9WqNxrPbcAxrY" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24"><path data-page-node-id="LcCYhbgfrdM3JHE94MmSRO" d="M6 9l6 6 6-6"/></svg>
@@ -716,13 +741,31 @@
 
         <div data-page-node-id="dDataCard0000000001" class="card datacard" id="d-data-card">
           <h3 data-page-node-id="dDataCardT000000001"><svg data-page-node-id="dDataCardS000000001" fill="none" stroke="#4A93D4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path data-page-node-id="dDataCardP000000001" d="M12 3v12m0 0l-4-4m4 4l4-4"/><path data-page-node-id="dDataCardP000000002" d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>数据备份与迁移</h3>
-          <div data-page-node-id="dDataCardSub00000001" class="sec-sub" style="margin:-4px 0 0">换设备或重装前先导出备份；拿到备份文件后可随时导入恢复，重复导入不会产生重复记录。</div>
+          <div data-page-node-id="dDataCardSub00000001" class="sec-sub" style="margin:-4px 0 0">换设备或重装前先导出备份；拿到备份文件后可随时导入恢复，重复导入会自动去重，不会产生重复记录。</div>
           <div data-page-node-id="dDataStat000000001" class="datastat" id="d-datastat"></div>
           <div data-page-node-id="dDataRow0000000001" class="datarow">
             <button data-page-node-id="dDataImp0000000001" class="btn" id="d-import">导入数据</button>
+            <button data-page-node-id="dDataSwitch00000001" class="btn ghost" id="d-switch-user"><svg data-page-node-id="dDataSwitchS0000001" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px"><path data-page-node-id="dDataSwitchP0000001" d="M16 3h5v5"/><path data-page-node-id="dDataSwitchP0000002" d="M21 3l-7 7"/><path data-page-node-id="dDataSwitchP0000003" d="M8 21H3v-5"/><path data-page-node-id="dDataSwitchP0000004" d="M3 21l7-7"/></svg>切换用户</button>
             <button data-page-node-id="dDataExp0000000001" class="btn ghost" id="d-export-all">导出全部（Excel）</button>
           </div>
-          <div data-page-node-id="dDataTip0000000001" class="datatip">本账本备份与「微信 / 支付宝账单」都从「导入数据」进来，会自动识别文件类型。账单会按「交易单号」去重，重复导入不会产生重复记录。</div>
+          <div data-page-node-id="dDataTip0000000001" class="datatip">本账本备份与「微信 / 支付宝账单」都从「导入数据」进来，会自动识别文件类型。<b>导入不会产生重复记录</b>：账单按「交易单号」去重，账本备份按「日期＋收支＋金额＋分类＋备注」整条比对去重。「切换用户」需二次确认，<b style="color:#B53A2E">确定后会清空本机全部数据</b>并回到登录页重新导入，重要数据请先导出备份。</div>
+        </div>
+
+        <div data-page-node-id="dBudget0000000001" class="card datacard budgetcard" id="d-budget-card">
+          <h3 data-page-node-id="dBudgetT0000000001"><svg data-page-node-id="dBudgetS0000000001" fill="none" stroke="#4A93D4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path data-page-node-id="dBudgetP0000000001" d="M12 7v5l3 2"/><circle data-page-node-id="dBudgetP0000000002" cx="12" cy="12" r="9"/></svg>今日消费额度</h3>
+          <div data-page-node-id="dBudgetSub00000001" class="sec-sub" style="margin:-4px 0 0">给今天设一条线。没超线显示绿色，超线变红并提醒你 —— 提醒只在当天生效，第二天自动重新开始。</div>
+          <div class="budget-hero">
+            <div data-page-node-id="dBudgetNum00000001" class="budget-num ok" id="dBudgetNum">—<span class="unit">元</span></div>
+            <div data-page-node-id="dBudgetSide000001" class="budget-side" id="dBudgetSide">—</div>
+          </div>
+          <div class="budget-bar"><i data-page-node-id="dBudgetBar00000001" id="dBudgetBar" class="ok"></i></div>
+          <div data-page-node-id="dBudgetStatus0001" class="budget-status ok" id="dBudgetStatus">—</div>
+          <div class="budget-set">
+            <label for="dBudgetInput">当日最高额度 ¥</label>
+            <input data-page-node-id="dBudgetInp00000001" id="dBudgetInput" type="number" step="1" min="0" inputmode="decimal" placeholder="例如 100">
+            <button data-page-node-id="dBudgetSave000001" class="btn" id="dBudgetSave">保存额度</button>
+          </div>
+          <div data-page-node-id="dBudgetMute000001" class="budget-mute" id="dBudgetMute" hidden></div>
         </div>
 
         <div data-page-node-id="dAutoCard000000001" class="card datacard" id="auto-card">
@@ -774,7 +817,7 @@
       <!--pnid:xcHFo2rvXnb75mH60rqL8P--><!-- 10秒记账 -->
       <section data-page-node-id="SqHV4HhdiJl1IvqM2xfuF7" class="page" id="sec-ledger">
         <div data-page-node-id="7KGsP48hfCSRSZCPWIPHl5" class="sec-title"><span data-page-node-id="JRn2ARsjSZntNJGHdCZv6V" class="tape" style="background:var(--pink)"></span><!--pnid:X0vjoVsHy3E39i5KRC6NZ1-->10 秒记账</div>
-        <div data-page-node-id="2EjAk6GCNo6KGxGeWKeuTr" class="sec-sub"><!--pnid:tokxxvmPss5oxkTm3D6WnW-->你不是乱花钱，你是在拿工时换体验。知道换了多少，选择就更踏实。</div>
+        <div data-page-node-id="2EjAk6GCNo6KGxGeWKeuTr" class="sec-sub"><!--pnid:tokxxvmPss5oxkTm3D6WnW-->你不是乱花钱，你是在拿工时换体验。知道换了多少，选择就更踏实。记录时间精确到秒，同一分钟连记两笔也分得清先后。</div>
         <div data-page-node-id="YDazBVXgt9ga0XGDak5Yh4" class="grid2">
           <div data-page-node-id="s63fHZQRXh1G3eXl8JwMUF" class="card">
             <h3 data-page-node-id="gJtrKlzESKhzlLCo4c34zq"><svg data-page-node-id="8xE1evgieDAwmxxtRUzAjN" fill="none" stroke="#4A93D4" stroke-width="2" viewBox="0 0 24 24"><path data-page-node-id="2dZPDhIDZNftNCfARHOBXx" d="M4 5h13l3 3v11H4z"/><path data-page-node-id="WKTp3EGX0RK6TkAqjpsgnD" d="M8 10h8M8 14h6"/></svg><!--pnid:vtu29UVRAqkbP5HHsTwJjh-->记下一笔体验</h3>
@@ -1281,8 +1324,24 @@
       });
       // 与云端 sorts:日期 descending 行为保持一致
       list.sort(function(a,b){ var x=localDateKey(a), y=localDateKey(b); return x<y ? 1 : (x>y ? -1 : 0); });
+      // 游标分页必须真实实现：
+      // 云端契约是「hasMore=true 时给 nextCursor，调用方拿它继续翻页」。
+      // 旧实现恒返回 nextCursor:null，导致 queryOneMonth 的翻页循环永远进不去
+      // —— 超过 pageSize（200 条）的流水被静默丢弃，表现为「导入成功但看不到数据」。
       var ps = o.pageSize || 200;
-      return { results: list.slice(0, ps), nextCursor: null, hasMore: list.length > ps };
+      var start = 0;
+      if(o.startCursor != null && o.startCursor !== ''){
+        start = parseInt(String(o.startCursor), 10);
+        if(!(start >= 0)) start = 0;
+      }
+      var slice = list.slice(start, start + ps);
+      var nextStart = start + slice.length;
+      var hasMore = nextStart < list.length;
+      return {
+        results: slice,
+        nextCursor: hasMore ? String(nextStart) : null,
+        hasMore: hasMore
+      };
     });
   };
   LocalDB.prototype.addRecord = function(o){
@@ -1321,6 +1380,11 @@
       if(!hit.length) return {};
       return localEnvWrite('readwrite', function(st){ hit.forEach(function(x){ st.delete(x); }); }).then(function(){ return {}; });
     });
+  };
+  // 「切换用户」的清空数据用：一次性清掉整个 records 表（四桶全清）。
+  // 只给确认弹窗的「确定」调用，不要挂在其它路径上。
+  LocalDB.prototype.clearAll = function(){
+    return localEnvWrite('readwrite', function(st){ st.clear(); }).then(function(){ return {}; });
   };
   LocalDB.prototype.getSchema = function(){
     // 本地无 select 选项 schema → 返回空，页面自动使用内置兜底分类
@@ -1367,9 +1431,9 @@
   // 收入来源兜底列表（线上 select 选项缺失时用）
   var INC_FALLBACK = ['工资','奖金','兼职','理财','红包','报销','其他收入'];
   var KIND_EXPENSE = '支出', KIND_INCOME = '收入';
-  var NUM_SET = {'到手月薪':1,'发薪月数':1,'工作成本':1,'在场时间':1,'通勤':1,'加班':1,'自由目标':1,'已攒金额':1,'每月开销':1};
+  var NUM_SET = {'到手月薪':1,'发薪月数':1,'工作成本':1,'在场时间':1,'通勤':1,'加班':1,'自由目标':1,'已攒金额':1,'每月开销':1,'当日消费额度':1};
   var SCHEMA_OPTIONS = {};
-  var DEFAULT_SETTINGS = {'到手月薪':13800,'发薪月数':13,'工作成本':850,'在场时间':9,'通勤':48,'加班':6,'自由目标':120000,'目标月份':'2028-03','已攒金额':36800,'每月开销':5600,'起始月':'2026-09','自由宣言':'攒出半年缓冲期，给下一次选择留出底气'};
+  var DEFAULT_SETTINGS = {'到手月薪':13800,'发薪月数':13,'工作成本':850,'在场时间':9,'通勤':48,'加班':6,'自由目标':120000,'目标月份':'2028-03','已攒金额':36800,'每月开销':5600,'起始月':'2026-09','自由宣言':'攒出半年缓冲期，给下一次选择留出底气','当日消费额度':0,'超额提醒静音日期':''};
   var state = { flow:[], settings:null, settingsId:null, monthly:[], users:[], u:null,
                 creating:false, usersLoaded:false, pendingAcct:null, loggedIn:false, platform:null,
                 // 明细查询范围（明细只加载这个区间，不再全量拉库）
@@ -1386,7 +1450,8 @@
     's-monthly':'到手月薪', 's-paymonths':'发薪月数', 's-cost':'工作成本',
     's-onsite':'在场时间', 's-commute':'通勤', 's-ot':'加班',
     'f-goal':'自由目标', 'f-target':'目标月份', 'f-saved':'已攒金额',
-    'f-cost':'每月开销', 'f-start':'起始月', 'f-decl':'自由宣言'
+    'f-cost':'每月开销', 'f-start':'起始月', 'f-decl':'自由宣言',
+    'dBudgetInput':'当日消费额度'
   };
 
   /* ---------- 工具 ---------- */
@@ -1418,32 +1483,56 @@
   }
   function pad2(n){ return (n<10?'0':'') + n; }
   function todayStr(){ var d=new Date(); return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()); }
-  // 记账时间戳：精确到分，'YYYY-MM-DD HH:mm'
+  // 记账时间戳：精确到秒，'YYYY-MM-DD HH:mm:ss'。
+  // 秒是「点击保存那一刻」的真实时间——同一分钟内连记两笔也能分清先后。
+  // 显示层按需截断（列表显示到分，详情/明细显示到秒），存储一律带秒，避免信息丢失。
   function nowStamp(){
     var d=new Date();
-    return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+' '+pad2(d.getHours())+':'+pad2(d.getMinutes());
+    return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+' '
+         + pad2(d.getHours())+':'+pad2(d.getMinutes())+':'+pad2(d.getSeconds());
   }
-  // 规整成 'YYYY-MM-DD HH:mm'：
-  // 纯日期补 00:00；兼容 ISO 'T' 分隔、斜杠日期(2026/10/12)、非补零时分(9:5)、秒/时区尾巴
+  // 规整成 'YYYY-MM-DD HH:mm:ss'：
+  // · 纯日期 → 补 00:00:00
+  // · 只到分 → 补 :00（保持与旧数据兼容，语义是「该分钟的第 0 秒」）
+  // · 兼容 ISO 'T' 分隔、斜杠日期(2026/10/12)、非补零时分秒、时区尾巴(Z / +08:00)
+  // · 云端读回的 ISO UTC（2026-10-13T05:45:07Z）也在这里被还原成东八区本地时间
   function normalizeStamp(v){
     var s=String(v==null?'':v).trim();
-    // 日期(可带时分)：2026-10-12 / 2026/10/5 9:5 / 2026-10-12T08:09:10Z
-    s=s.replace(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})(?:[ T](\d{1,2}):(\d{1,2}))?/, function(_, y, mo, d, h, mi){
-      var r = y+'-'+pad2(+mo)+'-'+pad2(+d);
-      if(h!=null) r += ' '+pad2(+h)+':'+pad2(+mi);
-      return r;
-    });
-    if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s+' 00:00';
-    if(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}/.test(s)) return s.slice(0,16);
+    if(!s) return s;
+    // ISO 8601 带 Z / 时区偏移：交给 Date 解析后按本机时区还原（云端 date 字段读回就是这个形态）
+    if(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(s) && /(Z|[+\-]\d{2}:?\d{2})$/.test(s)){
+      var dt = new Date(s);
+      if(!isNaN(dt.getTime())){
+        return dt.getFullYear()+'-'+pad2(dt.getMonth()+1)+'-'+pad2(dt.getDate())+' '
+             + pad2(dt.getHours())+':'+pad2(dt.getMinutes())+':'+pad2(dt.getSeconds());
+      }
+    }
+    // 本地形态：2026-10-12 / 2026-10-12T08:09 / 2026/10/5 9:5:7 / 2026-10-12 08:09:10.123
+    s=s.replace(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})(?:[ T](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?/,
+      function(_, y, mo, d, h, mi, sec){
+        var r = y+'-'+pad2(+mo)+'-'+pad2(+d);
+        if(h!=null) r += ' '+pad2(+h)+':'+pad2(+mi)+':'+pad2(sec==null?0:+sec);
+        return r;
+      });
+    if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s+' 00:00:00';
+    if(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(s)) return s+':00';
+    if(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/.test(s)) return s.slice(0,19);
     return s;
   }
-  // 记账页只让用户选「日期」：时间在点保存的那一刻自动补全为当前时分。
-  // 选今天 → 用真实当前时分；选历史日期 → 补 00:00（用户仍可在明细里点「编辑」改精确时分）。
+  // 显示用：把时间戳截到「分」（列表里秒太吵）；想做更细展示再传 sec=true
+  function stampShort(v, withSec){
+    var s = normalizeStamp(v);
+    if(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(s)) return withSec ? s : s.slice(0,16);
+    return s;
+  }
+  // 记账页只让用户选「日期」：时间在点保存的那一刻自动补全为当前时分秒。
+  // 选今天 → 用真实当前时刻（秒级）；选历史日期 → 补 00:00:00（仍可在明细里点「编辑」改）。
   function stampOfPickedDate(v, tm){
     var s=String(v==null?'':v).trim();
     if(!/^\d{4}-\d{2}-\d{2}$/.test(s)) return nowStamp();
     var t=String(tm==null?'':tm).trim();
-    if(!/^\d{2}:\d{2}$/.test(t)) t = (s===todayStr()) ? nowHm() : '00:00';
+    if(!/^\d{2}:\d{2}$/.test(t) && !/^\d{2}:\d{2}:\d{2}$/.test(t)) t = (s===todayStr()) ? nowHms() : '00:00:00';
+    if(/^\d{2}:\d{2}$/.test(t)) t += ':00';
     return s+' '+t;
   }
   function curMonth(){ var d=new Date(); return d.getFullYear()+'-'+pad2(d.getMonth()+1); }
@@ -1613,7 +1702,7 @@
   //   · 明细查询：两端各留一天余量（after=前一天、before=次日）保证端点不漏，
   //     多带进来的边界外记录由 clampToRange() 在客户端精确剔除；
   //   · 聚合查询：绝不能用余量，否则相邻两个月会把同一条边界记录各算一次 → 用 rangeDateFilterTight()。
-  // 记录精确到分后（记账时间带 HH:mm），这个区别才变得重要。
+  // 记录精确到秒后（记账时间带 HH:mm:ss），这个区别才变得重要。
   function kindFilter(kind){
     return { property:{ property:'收支类型', text:{ equals:kind } } };
   }
@@ -1626,7 +1715,7 @@
   function rangeDateFilterTight(from, to){
     return { property:{ property:'日期', date:{ after: from, before: nextDay(to) } } };
   }
-  // 服务端为了让区间不漏会各留一天余量；记录精确到分后会把边界外那天的记录也带进来，这里按日期精确收紧
+  // 服务端为了让区间不漏会各留一天余量；记录带秒后会把边界外那天的记录也带进来，这里按日期精确收紧
   function clampToRange(list, from, to){
     if(!from || !to) return list || [];
     return (list||[]).filter(function(rec){
@@ -1977,12 +2066,117 @@
   }
   function closeGate(){ var g=$('gate'); if(g) g.hidden=true; }
   function pickUser(u){
+    switchToUser(u);
+    closeGate();
+  }
+  // 切换/进入某位成员：统一重置所有按成员隔离的缓存，再重新拉数据。
+  // 单独抽出来是因为「切换用户」和「导入后自动切到数据所属成员」都要走同一套重置逻辑，
+  // 漏掉任何一项（settings / extraFlow / 聚合缓存 / 查询范围）都会出现「切了人但数据还是旧的」。
+  function switchToUser(u){
     state.u=u; writeU(u);
     state.settingsId=null; state.settings=null;
     state.flow=[];
-    renderWhoami(); closeGate();
+    state.extraFlow=[];          // 统计缓存的其它月份明细属于上一位成员，必须清掉
+    state.agg=null;              // 月度聚合缓存同理
+    state.range={ mode:'month', cm:curMonth(), from:'', to:'' };   // 回到本月，避免继承上一位成员的范围
+    renderWhoami();
     loadAllData();
     drainAutoQueue(billPlugin());   // 选好成员后，补记后台攒下的通知
+  }
+  // 退出当前身份：清空 state.u 与全部按成员隔离的内存缓存，回到登录门重新选成员。
+  // 侧栏「切换用户」和驾驶舱数据卡里的「切换用户」共用（两处走不同入口，行为必须一致）。
+  // 只清内存身份，不动数据库 —— 已导入的流水仍然留在库里，重新选中该成员即可看到。
+  function switchUserOut(){
+    state.u=''; writeU('');
+    state.flow=[]; state.extraFlow=[]; state.agg=null;
+    state.settings=null; state.settingsId=null;
+    state.pendingAcct=null;      // 未归属的待记账也一并放下，避免把上一位成员的通知记到新成员名下
+    state.range={ mode:'month', cm:curMonth(), from:'', to:'' };
+    renderWhoami();
+    // 注意：renderSkeleton 定义在 init() 内部，这里取不到 —— 直接调各自的渲染函数把界面清空
+    renderDashboard(); renderHourly(); renderLedger(); renderMonthly();
+    renderFreedom(); renderFindings(); renderDataStat();
+    openGate();
+    showToast('已退出当前身份，请选择或新建一位成员');
+  }
+  /* ---------- 切换用户：确认弹窗 + 清空全部数据 ---------- */
+  // 清空本机全部业务数据（流水 / 成员 / 设置 / 月度汇总）。
+  // 云端环境逐表翻页删除（每轮都从第 0 页取 —— 删掉一批后剩下的会顶上来）；
+  // 本地环境直接清整个 IndexedDB records 表。返回删除条数。
+  function wipeAllData(){
+    var isLocal = (typeof DB_IS_LOCAL!=='undefined') && DB_IS_LOCAL;
+    if(isLocal){
+      if(db.clearAll) return db.clearAll().then(function(){ return -1; });  // -1 = 本地整表清，条数未知
+      return Promise.resolve(0);
+    }
+    var ids=[DB_USER, DB_SETTINGS, DB_MONTHLY].concat(FLOW_IDS);
+    var del=0, i=0;
+    function oneDb(id){
+      function round(){
+        return db.query({databaseId:id, pageSize:200}).then(function(r){
+          var rs=(r&&r.results)||[];
+          if(!rs.length) return del;
+          var chain=Promise.resolve();
+          rs.forEach(function(rec){
+            var rid=rec && (rec._id || rec.record_id);
+            if(!rid) return;
+            chain=chain.then(function(){
+              return db.deleteRecord({databaseId:id, recordId:rid})
+                .then(function(){ del++; }, function(){ /* 单条失败不阻断整体清空 */ });
+            });
+          });
+          return chain.then(round);
+        });
+      }
+      return round().catch(function(){ /* 某张表查不到就跳过 */ });
+    }
+    function run(){
+      if(i>=ids.length) return Promise.resolve(del);
+      return oneDb(ids[i++]).then(run);
+    }
+    return run();
+  }
+  // 确认弹窗：样式复用 .sheet 底部弹层（与自动记账详情同款）。
+  // 「确定」才真正清数据并回登录门；「取消 / 点遮罩」只是关掉弹层，什么都不动。
+  var swSheetEl=null;
+  function openSwitchConfirm(){
+    if(swSheetEl){ swSheetEl.hidden=false; return; }
+    var mask=el('div','sheet'); mask.hidden=true;
+    var box=el('div','sheet-box');
+    box.innerHTML=
+      '<h3 style="display:block">切换用户</h3>'+
+      '<div style="font-size:13.5px; line-height:1.75; color:var(--ink-soft)">'+
+      '确定要切换用户吗？<b style="color:#B53A2E">确定后将清空本机的全部数据</b>'+
+      '（流水、成员、设置都会删除，且<b>不可恢复</b>），然后回到登录页重新导入。'+
+      '如需保留，请先在「导出全部（Excel）」里做好备份。</div>';
+    var acts=el('div','sheet-acts');
+    var c=el('button','btn ghost'); c.textContent='取消';
+    c.onclick=function(){ mask.hidden=true; };
+    var ok=el('button','btn'); ok.textContent='确定切换并清空数据';
+    ok.style.background='#B53A2E';
+    ok.onclick=function(){
+      mask.hidden=true;
+      ok.disabled=true; c.disabled=true;
+      showToast('正在清空数据…');
+      wipeAllData().then(function(n){
+        switchUserOut();
+        var tail = (n>=0) ? '（共 '+n+' 条）' : '';
+        showToast('已清空全部数据'+tail+'，请重新导入');
+      }).catch(function(e){
+        console.error('[wipeAllData]', e);
+        switchUserOut();
+        showToast('清空数据时出错：'+((e&&e.message)||'未知')+'，已退出登录','err');
+      }).then(function(){
+        ok.disabled=false; c.disabled=false;
+      });
+    };
+    acts.appendChild(c); acts.appendChild(ok);
+    box.appendChild(acts);
+    mask.appendChild(box);
+    mask.onclick=function(e){ if(e.target===mask) mask.hidden=true; };
+    document.body.appendChild(mask);
+    swSheetEl=mask;
+    swSheetEl.hidden=false;
   }
   // 姓名归一化后查重：去首尾空白、压缩中间空白、英文转小写、全角转半角
   function normName(s){
@@ -2243,6 +2437,131 @@
     allKnown().forEach(function(r){ if(!isIncome(r)) return; if(String(r['日期']||'').slice(0,10)===t) sum+=num(r['金额']); });
     return sum;
   }
+
+  /* ---------- 今日消费额度（超额提醒） ---------- */
+  // 存两个设置字段：
+  //   · 当日消费额度    —— number，今天不许超过的额度；0 表示未设置（不启用提醒）
+  //   · 超额提醒静音日期 —— text，用户点「今日不再提醒」时写入今天的日期；
+  //                        渲染与弹窗时都拿它和「今天」比对，不等就视为未静音 ——
+  //                        这样「每日刷新」不需要任何定时任务，靠日期字符串天然过期。
+  function settingsObj(){ return state.settings || DEFAULT_SETTINGS; }
+  function budgetLimit(){ return num(settingsObj()['当日消费额度']); }
+  function budgetMuteDate(){ return String(settingsObj()['超额提醒静音日期'] || '').slice(0,10); }
+  // 今天是否已被用户静音（点了「今日不再提醒」）
+  function budgetMutedToday(){ return budgetMuteDate() === todayStr(); }
+  function budgetOver(){ var l=budgetLimit(); return l>0 && todayTotal() > l; }
+
+  // 弹窗提醒：每笔超额消费都弹（除非用户今天已点「不再提醒」）。
+  // 用独立的遮罩层而不是复用 .sheet —— 弹出的时机是「刚记完一笔」，不能打断记账表单的状态。
+  var budgetPopEl = null;
+  function openBudgetPopup(){
+    if(budgetMutedToday()) return;
+    if(budgetPopEl){ budgetPopEl.hidden = false; return; }
+    var mask = el('div','sheet'); mask.hidden = true;
+    var box = el('div','sheet-box');
+    var lim = budgetLimit(), spent = todayTotal(), over = spent - lim;
+    box.innerHTML =
+      '<h3 style="display:block">⚠️ 今日消费已超额</h3>' +
+      '<div style="font-size:13.5px; line-height:1.8; color:var(--ink-soft)">' +
+        '今天已花 <b style="color:#D6453C; font-size:16px">' + fmt(spent) + '</b>，' +
+        '超出当日额度 <b style="color:#D6453C">' + fmt(over) + '</b>' +
+        '（额度 ' + fmt(lim) + '）。' +
+        '<br>要不要停下来想想，这笔是「需要」还是「想要」？' +
+      '</div>';
+    var acts = el('div','sheet-acts');
+    var mute = el('button','btn ghost'); mute.textContent = '今日不再提醒';
+    mute.onclick = function(){
+      mask.hidden = true;
+      // 写入今天的日期 → 今天的后续超额都不再弹；明天日期不匹配，自动恢复
+      state.settings = state.settings || Object.assign({}, DEFAULT_SETTINGS);
+      state.settings['超额提醒静音日期'] = todayStr();
+      doSaveSettings();
+      showToast('今天不再提示超额，明天会自动恢复');
+      renderBudget();
+    };
+    var ok = el('button','btn'); ok.textContent = '我知道了';
+    ok.style.background = '#D6453C';
+    ok.onclick = function(){ mask.hidden = true; };
+    acts.appendChild(mute); acts.appendChild(ok);
+    box.appendChild(acts);
+    mask.appendChild(box);
+    mask.onclick = function(e){ if(e.target === mask) mask.hidden = true; };
+    document.body.appendChild(mask);
+    budgetPopEl = mask;
+    budgetPopEl.hidden = false;
+  }
+  // 记账成功后调用：只在「超额」并且「今天没被静音」时弹
+  function maybeWarnBudget(){
+    if(budgetLimit() <= 0) return;         // 没设额度 → 不打扰
+    if(!budgetOver()) return;
+    if(budgetMutedToday()) return;
+    openBudgetPopup();
+  }
+
+  // 渲染额度卡：数值颜色、进度条、状态标签、输入框回填、静音提示
+  function renderBudget(){
+    var card = $('d-budget-card'); if(!card) return;
+    var lim = budgetLimit(), spent = todayTotal();
+    var over = lim > 0 && spent > lim;
+    var set = lim > 0;
+    var numEl = $('dBudgetNum'), barEl = $('dBudgetBar'), stEl = $('dBudgetStatus'), sideEl = $('dBudgetSide');
+
+    if(numEl){
+      numEl.className = 'budget-num ' + (over ? 'over' : 'ok');
+      numEl.innerHTML = (money2(spent)) + '<span class="unit">元</span>';
+    }
+    if(sideEl){
+      sideEl.innerHTML = set
+        ? ('额度 ' + money2(lim) + ' 元<br>剩余 ' +
+           (over ? '<b style="color:#D6453C">已超 ' + money2(spent-lim) + '</b>' : money2(lim-spent)))
+        : '未设额度<br><span style="opacity:.8">设一条线，超了会提醒你</span>';
+    }
+    if(barEl){
+      // 进度按额度算；超额时封顶 100% 并整条变红
+      var pct = set ? Math.min(100, (spent / lim) * 100) : 0;
+      barEl.className = over ? 'over' : 'ok';
+      barEl.style.width = pct.toFixed(1) + '%';
+    }
+    if(stEl){
+      stEl.className = 'budget-status ' + (over ? 'over' : 'ok');
+      stEl.textContent = !set ? '未设置额度'
+        : (over ? '已超额 ' + money2(spent - lim) + ' 元' : '额度内，还剩 ' + money2(lim - spent) + ' 元');
+    }
+    // 输入框只在没聚焦时回填，避免打字跳到中间
+    var inp = $('dBudgetInput');
+    if(inp && document.activeElement !== inp){
+      inp.value = set ? String(round2(lim)) : '';
+    }
+    var muteEl = $('dBudgetMute');
+    if(muteEl){
+      if(budgetMutedToday()){ muteEl.hidden = false; muteEl.textContent = '🔕 今天已关闭超额提醒（明天自动恢复）'; }
+      else muteEl.hidden = true;
+    }
+  }
+  // 金额：整数不带小数、有小数才显示两位（额度卡里更清爽）
+  function money2(v){
+    var n = round2(num(v));
+    return (n % 1 === 0) ? String(n) : n.toFixed(2);
+  }
+  // 保存当日额度。空 / 0 / 负数都视为「关闭额度提醒」。
+  function saveBudgetLimit(){
+    var inp = $('dBudgetInput'); if(!inp) return;
+    var raw = String(inp.value == null ? '' : inp.value).trim();
+    var v = raw === '' ? 0 : num(raw);
+    if(v < 0) v = 0;
+    if(v > 0 && v < 1){ showToast('额度至少 1 元，输入 0 可关闭提醒','err'); return; }
+    state.settings = state.settings || Object.assign({}, DEFAULT_SETTINGS);
+    state.settings['当日消费额度'] = round2(v);
+    // 改了额度（尤其是调高到已消费之上）→ 顺便清掉今天的静音，让提醒重新生效
+    if(v > 0) state.settings['超额提醒静音日期'] = '';
+    setSaveState('正在保存…', 'busy');
+    setSaveBtnBusy(true);
+    doSaveSettings().then(function(ok){
+      if(ok === false) return;
+      renderBudget();
+      showToast(v > 0 ? ('当日额度已设为 ' + fmt(v) + '，超出会提醒你') : '已关闭当日额度提醒');
+    });
+  }
   function avgSavings(){
     var arr = monthBuckets();
     var cm = curMonth(), tot=0, n=0;
@@ -2322,6 +2641,7 @@
     var recs=state.flow.slice(0,5);
     if(!recs.length){ box.innerHTML='<div class="empty">当前范围内还没有记录。</div>'; }
     recs.forEach(function(r){ box.appendChild(recordRow(r, false)); });
+    renderBudget();     // 今日消费额度卡：数值/颜色/进度随数据一起刷新
     fitNumbers();
   }
   function recordRow(r, withActions){
@@ -2334,7 +2654,8 @@
       : '<svg viewBox="0 0 24 24" fill="none" stroke="#4A93D4" stroke-width="2"><path d="M4 5h13l3 3v11H4z"/><path d="M8 10h8"/></svg>';
     var body=el('div','body');
     body.appendChild(el('div','t', String(r['备注']||cat)));
-    var d=normalizeStamp(r['日期']);
+    // 明细行显示到秒：同一分钟连记两笔时能看出先后，也方便和「自动记账」的通知原文对齐
+    var d=stampShort(recStamp(r), true);
     body.appendChild(el('div','m', (inc?'收入 · ':'')+cat+' · '+d));
     var amt=el('div','amt'+(inc?' inc-amt':''), (inc?'+':'-')+fmt(r['金额']));
     row.appendChild(ic); row.appendChild(body); row.appendChild(amt);
@@ -2993,7 +3314,7 @@
     var head = ['日期','收支类型','分类','金额','备注','成员'];
     var lines = [ head.map(csvCell).join(',') ];
     list.forEach(function(r){
-      lines.push([ normalizeStamp(r['日期']), kindOf(r), catOf(r),
+      lines.push([ recStamp(r), kindOf(r), catOf(r),
                    num(r['金额']), String(r['备注']||''), String(r['u']||'') ].map(csvCell).join(','));
     });
     return '\ufeff'+lines.join('\r\n');   // BOM头，Excel 打开中文不乱码
@@ -3295,14 +3616,14 @@
 
     Promise.all([ runBatch(0), membersPromise ]).then(function(res){
       var members = res[1] || [];
-      all.sort(function(a,b){ return String(a['日期']||'') < String(b['日期']||'') ? -1 : 1; });
+      all.sort(function(a,b){ var x=recStamp(a), y=recStamp(b); return x<y ? -1 : (x>y ? 1 : 0); });
 
       var sheets=[];
-      // 1) 流水
+      // 1) 流水：日期写到秒（备份要能完整还原，含秒），另留一列原始「日期」便于和账单对账
       var flowRows=[['日期','收支类型','分类/来源','金额(元)','备注','成员标识u','外部单号']];
       all.forEach(function(r){
         flowRows.push([
-          normalizeStamp(r['日期']),
+          recStamp(r),
           kindOf(r),
           catOf(r),
           round2(num(r['金额'])),
@@ -3614,7 +3935,12 @@
   function importBillRows(rows, btn, opts){
     opts = opts || {};
     if(!db){ showToast('离线环境，无法导入','err'); return Promise.resolve(); }
-    if(!state.u){ showToast('请先选择或新建一位成员，再导入账单','err'); return Promise.resolve(); }
+    // 账单没有成员信息，必须已有身份才能归属。在登录门里导入会走到这里，
+    // 提示要明确：先去上面选/建一个成员，再回来导。
+    if(!state.u){
+      showToast('请先在登录页选择或新建一位成员，再导入账单','err');
+      return Promise.resolve();
+    }
     btn = btn || $('l-import'); if(btn) btn.disabled=true;
     var hi = findBillHeaderRow(rows);
     if(hi < 0){
@@ -3694,18 +4020,20 @@
       });
     }
     return runBatch(0).then(function(){
+      // 与备份导入用同一套归一化口径建索引，保证「先导账单、再导备份」也不会重复。
       var byNo={}, byFp={};
       all.forEach(function(x){
-        var no=String(x['外部单号']||'').trim();
+        var no=dedupNo(x['外部单号']);
         if(no) byNo[no]=1;
-        byFp[[String(x['日期']||'').slice(0,10), kindOf(x), (Math.round(num(x['金额'])*100)/100).toFixed(2), catOf(x), String(x['备注']||'')].join('|')]=1;
+        byFp[flowFingerprint(x['日期'], kindOf(x), num(x['金额']), catOf(x), x['备注'])]=1;
       });
       var toAdd=[], dup=0;
       recs.forEach(function(rec){
-        var fp=[rec.date, rec.kind, (Math.round(rec.amt*100)/100).toFixed(2), rec.cat, rec.note].join('|');
-        if(rec.no && byNo[rec.no]){ dup++; return; }
-        if(!rec.no && byFp[fp]){ dup++; return; }
-        if(rec.no) byNo[rec.no]=1;
+        var no=dedupNo(rec.no);
+        var fp=flowFingerprint(rec.date, rec.kind, rec.amt, rec.cat, rec.note);
+        // 判重规则与 importFlowRows 保持一致：单号命中 或 指纹命中 → 跳过
+        if((no && byNo[no]) || byFp[fp]){ dup++; return; }
+        if(no) byNo[no]=1;
         byFp[fp]=1;
         toAdd.push(rec);
       });
@@ -3736,6 +4064,10 @@
       if(st.neutral) msg += '，中性(转账等) '+st.neutral+' 笔';
       if(st.bad) msg += '，格式不符 '+st.bad+' 行';
       if(st.failed) msg += '，失败 '+st.failed+' 笔';
+      // 全部都是重复时给一句明确结论
+      if(!st.inserted && st.dup && !st.bad && !st.failed){
+        msg = '这份账单之前已经导入过，已自动去重跳过 '+st.dup+' 笔，没有重复记录产生';
+      }
       showToast(msg, st.failed ? 'err' : undefined);
       if(st.inserted) return reloadRange();
     }).catch(function(e){
@@ -3852,11 +4184,11 @@
       if(kind!==KIND_INCOME && kind!==KIND_EXPENSE){ bad++; continue; }
       rows.push({date:date, kind:kind, cat:cat, amt:amt, note:note, u:u, no:no});
     }
-    if(!rows.length) return Promise.resolve({inserted:0, dup:0, bad:bad, failed:0});
+    if(!rows.length) return Promise.resolve({inserted:0, dup:0, bad:bad, failed:0, flowU:''});
     var dbs=[]; for(var cm in MONTH_ROUTE){ if(MONTH_ROUTE.hasOwnProperty(cm)) dbs.push({cm:cm,id:MONTH_ROUTE[cm]}); }
     var isLocal = (typeof DB_IS_LOCAL!=='undefined') && DB_IS_LOCAL;
     if(isLocal) dbs=[{cm:curMonth(), id:flowDbOf(curMonth())}];
-    var exist={}, all=[], seen={}, CONC=5;
+    var exist={}, existNo={}, all=[], seen={}, CONC=5;
     function runBatch(startI){
       var slice=dbs.slice(startI,startI+CONC);
       if(!slice.length) return Promise.resolve();
@@ -3872,21 +4204,35 @@
         return runBatch(startI+CONC);
       });
     }
-    var keyOf=function(date,kind,amt,cat,note){
-      return [date,kind,(Math.round(Number(amt)*100)/100).toFixed(2),cat,note].join('|');
-    };
     return runBatch(0).then(function(){
+      // 建两份索引：字段指纹 + 外部单号。
+      // 单号优先（账单类记录唯一性强），没有单号的退回字段指纹。
       all.forEach(function(r){
-        exist[keyOf(String(r['日期']||'').slice(0,10), kindOf(r), num(r['金额']), catOf(r), String(r['备注']||''))]=1;
+        exist[flowFingerprint(r['日期'], kindOf(r), num(r['金额']), catOf(r), r['备注'])]=1;
+        var no=dedupNo(r['外部单号']);
+        if(no) existNo[no]=1;
       });
       var toAdd=[], dup=0;
       rows.forEach(function(r){
-        var k=keyOf(r.date, r.kind, r.amt, r.cat, r.note);
-        if(exist[k]){ dup++; return; }
+        var no=dedupNo(r.no);
+        var k=flowFingerprint(r.date, r.kind, r.amt, r.cat, r.note);
+        // 判重规则（任一命中即为重复）：
+        //   ① 有单号且单号已存在 → 重复。这是最强判据：同笔交易即使备注/分类被改过也不会重复入账。
+        //   ② 字段指纹已存在（日期/收支/金额/分类/备注全同）→ 重复。
+        //      同时覆盖「无单号」和「有单号但库里那条当初没记单号」两种情形，
+        //      避免同一笔既被当账单导入过、又被当备份导入而重复记两笔。
+        if((no && existNo[no]) || exist[k]){
+          dup++; return;
+        }
+        if(no) existNo[no]=1;
         exist[k]=1;
         toAdd.push(r);
       });
-      if(!toAdd.length) return {inserted:0, dup:dup, bad:bad, failed:0};
+      // flowU：本文件里流水实际归属的成员 u（取第一条有 u 的）。
+      // 返回给上层用于「导入后自动切进对应成员」—— 否则用户看不到刚导入的数据。
+      var flowU='';
+      for(var fi=0; fi<rows.length; fi++){ if(rows[fi].u){ flowU=rows[fi].u; break; } }
+      if(!toAdd.length) return {inserted:0, dup:dup, bad:bad, failed:0, flowU:flowU};
       var inserted=0, failed=0, idx=0;
       function worker(){
         if(idx>=toAdd.length) return Promise.resolve();
@@ -3901,7 +4247,7 @@
       }
       var ws=[];
       for(var w=0; w<Math.min(CONC, toAdd.length); w++){ ws.push(worker()); }
-      return Promise.all(ws).then(function(){ return {inserted:inserted, dup:dup, bad:bad, failed:failed}; });
+      return Promise.all(ws).then(function(){ return {inserted:inserted, dup:dup, bad:bad, failed:failed, flowU:flowU}; });
     });
   }
   // 导入备份（成员 + 设置 + 流水）。顺序很重要：成员先落地，否则流水按 u 归属后看不见。
@@ -3944,23 +4290,47 @@
       if(st.flow.dup) msg += '，重复跳过 '+st.flow.dup+' 条';
       if(st.flow.bad) msg += '，格式不符 '+st.flow.bad+' 条';
       if(st.flow.failed) msg += '，失败 '+st.flow.failed+' 条';
+      // 全部都是重复时给一句明确结论，避免用户以为「导入成功但没数据」
+      if(!st.flow.inserted && st.flow.dup && !st.flow.bad && !st.flow.failed){
+        msg = '这些数据之前已经导入过，已自动去重跳过 '+st.flow.dup+' 条，没有重复记录产生';
+      }
       showToast(msg, st.flow.failed ? 'err' : undefined);
       // 刷新成员列表：在登录门里导入完，立刻就能选中导入进来的成员
       return loadUsers().then(function(){
         var g=$('gate');
         if(g && !g.hidden){
           renderUserList();
+          // 关键：导入进来的流水归属「文件里那个成员」的 u，与当前身份（往往为空）不同。
+          // 若只刷新列表让用户自己点，用户很可能直接去「创建」一个新成员 ——
+          // 那他的 state.u 就是新成员的 u，永远看不到刚导入的数据（表现为「导入成功但首页空白」）。
+          // 所以这里直接切进数据所属成员：数据立刻可见，用户也不会有机会建错人。
+          var tu = st.mem.firstU || st.flowU || '';
+          if(tu){
+            var tip = (st.mem.firstU && st.mem.names && st.mem.names[0])
+              ? '已导入成员「'+st.mem.names[0]+'」，正在进入…'
+              : '数据已导入，正在进入对应成员…';
+            setTimeout(function(){ showToast(tip); }, 1400);
+            pickUser(tu);
+            return;
+          }
+          // 文件里没有成员信息（纯流水导入）—— 只能提示用户选一个
           if(st.mem.added && st.mem.names && st.mem.names.length){
             setTimeout(function(){
               showToast('已导入成员「'+st.mem.names[0]+'」，选它进入即可看到数据');
             }, 1700);
           }
-        } else if(st.mem.added && st.mem.names && st.mem.names.length && String(st.mem.firstU)!==String(state.u)){
-          setTimeout(function(){
-            showToast('数据属于成员「'+st.mem.names[0]+'」，请在左下角切换过去查看');
-          }, 1700);
+          return;
         }
-        if(!opts.gate && st.flow.inserted) return reloadRange();
+        // 已进入账本时导入：数据在「导入成员」的 u 下，若与当前成员不是同一个，
+        // 页面不会自动显示（查询按 state.u 过滤）—— 直接切过去，否则用户会以为「导入成功但没数据」
+        if(st.mem.firstU && String(st.mem.firstU)!==String(state.u)){
+          var nm=(st.mem.names && st.mem.names[0]) || '';
+          var who=nm ? '「'+nm+'」' : '';
+          setTimeout(function(){ showToast('数据属于成员'+who+'，已自动切换过去'); }, 1700);
+          switchToUser(st.mem.firstU);
+          return;
+        }
+        if(st.flow.inserted) return reloadRange();
       });
     }).catch(function(e){
       console.error('[importFlowExcel]', e);
@@ -4320,7 +4690,8 @@
     var t1 = document.createElement('span'); t1.textContent = '自动记账详情';
     var cb = document.createElement('button'); cb.className='close'; cb.textContent='\u00d7'; cb.onclick = closeAutoDetail;
     hd.appendChild(t1); hd.appendChild(cb); box.appendChild(hd);
-    sheetKV(box, '时间', x.stamp || x.time);
+    // 自动记账详情也显示到秒：通知到达的那一刻以秒为准，便于和银行/支付 App 的记录对齐
+    sheetKV(box, '时间', x.stamp ? stampShort(x.stamp, true) : (x.time || '—'));
     sheetKV(box, '来源', x.app || '—');
     if(x.skip){
       sheetKV(box, '结果', '未记账（' + (x.reason || '已跳过') + '）');
@@ -4368,6 +4739,8 @@
       x.skip = false; x.reason = ''; x.amt = amt; x.kind = kind; x.stamp = stamp; x.rid = '';
       closeAutoDetail(); renderAutoLog(); renderAutoCard();
       showToast('已补记 ' + (kind === KIND_INCOME ? '+' : '-') + fmt(amt));
+      // 补记用的就是当前时刻 → 算在今天，做一次超额判断
+      if(kind === KIND_EXPENSE) maybeWarnBudget();
       return autoLogRefresh();
     }).catch(function(e){ console.error('[manualFromAuto]', e); showToast('补记失败，请重试', true); });
   }
@@ -4419,6 +4792,11 @@
   function nowHm(){
     var d=new Date();
     return pad2(d.getHours())+':'+pad2(d.getMinutes());
+  }
+  // 秒级时刻（仅时分秒，不带日期）——给隐藏时间字段 / 自动记账日志用
+  function nowHms(){
+    var d=new Date();
+    return pad2(d.getHours())+':'+pad2(d.getMinutes())+':'+pad2(d.getSeconds());
   }
   // 收到通知 → 解析 → 入库。skipRefresh 用于批量补记（最后统一刷新一次）
   function onBillNotification(ev, skipRefresh){
@@ -4482,7 +4860,11 @@
                        label:p.app+' · '+note+' · '+p.cat, amt:p.amt, kind:p.kind, rid:rid });
           if(skipRefresh) return;
           showToast('自动记账：'+note+' '+((p.kind===KIND_INCOME?'+':'-')+fmt(p.amt)));
-          return reloadRange().then(function(){ refreshAll(); setSync('synced'); });
+          return reloadRange().then(function(){
+            refreshAll(); setSync('synced');
+            // 自动记账的时间就是「现在」→ 支出时同样做超额判断
+            if(p.kind === KIND_EXPENSE) maybeWarnBudget();
+          });
         })
         .catch(function(e){
           console.error('[auto ledger]', e);
@@ -4711,15 +5093,51 @@
     return String(sel.value||'');
   }
   // 组装一条流水的 properties：收入写「收入来源」，支出写「分类」，两者都写「收支类型」
+  // 「记录时间」= 精确到秒的本地时间戳（'YYYY-MM-DD HH:mm:ss'），随「点保存」那一刻写入。
+  // 为什么单独存一份而不只靠「日期」：云端 date 字段读回是 ISO-8601 UTC（2026-10-13T05:45:07Z），
+  // 经时区换算后秒可能与写入时不同；text 字段是无损透传，能保证「秒」原样保留。
+  // 「日期」仍是 date 类型，负责区间筛选与排序，两者职责分开。
   function flowProps(date, amt, cat, note, kind){
-    var p = withU({ '日期':{date:date}, '金额':{number:round2(amt)}, '收支类型':{text:kind}, '备注':{text:note} });
+    var sec = normalizeStamp(date);            // 一律规整到 'YYYY-MM-DD HH:mm:ss'
+    if(sec.length !== 19) sec = normalizeStamp(nowStamp());
+    var p = withU({ '日期':{date:date}, '记录时间':{text:sec}, '金额':{number:round2(amt)}, '收支类型':{text:kind}, '备注':{text:note} });
     if(kind===KIND_INCOME) p['收入来源'] = { text: cat };
     else p['分类'] = { text: cat };
     return p;
   }
+  // 取一条记录的「精确到秒」时间：优先 text 的「记录时间」，回退到「日期」。
+  // 这样老数据（没有「记录时间」字段）也能正常显示，不会因为缺字段报错。
+  function recStamp(r){
+    if(!r) return '';
+    var t = r['记录时间'];
+    if(t){ var ns = normalizeStamp(t); if(ns) return ns; }
+    return normalizeStamp(r['日期']);
+  }
+
+  /* ---------- 导入去重指纹 ---------- */
+  // 字段归一化：去首尾空白 + 把连续空白压成一个 + 去掉 \r\n 这类行尾噪声。
+  // 不做全角/大小写转换 —— 中文备注里全角半角可能语义不同，误合并比漏合并更糟。
+  function dedupText(v){
+    return String(v==null?'':v).replace(/[\r\n\t\u00A0]/g,' ').replace(/\s+/g,' ').trim();
+  }
+  // 日期一律截到「天」。备份导出用 normalizeStamp（可能带时分），而用户手抄只到日；
+  // 若参与指纹会因「2026-10-12」≠「2026-10-12 12:30」而判定为新记录 → 重复导入。
+  function dedupDate(v){
+    var s = normalizeStamp(v);
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s);
+    return m ? (m[1]+'-'+m[2]+'-'+m[3]) : dedupText(s);
+  }
+  // 字段指纹：日期(到天) + 收支 + 金额(2位) + 分类 + 备注（均已归一化）
+  function flowFingerprint(date, kind, amt, cat, note){
+    return [dedupDate(date), kind, round2(amt).toFixed(2), dedupText(cat), dedupText(note)].join('|');
+  }
+  // 外部单号归一化：去掉空白，统一大写（单号大小写不敏感，避免 WX001 与 wx001 被当成两条）
+  function dedupNo(v){ return dedupText(v).toUpperCase(); }
 
   // 保存那一刻刷新一次隐藏时间字段：只选日期的用户，时分自动补当前时刻
-  function refreshAutoTime(){ var e=$('l-time'); if(e) e.value = nowHm(); return e ? e.value : nowHm(); }
+  // 保存那一刻刷新一次隐藏时间字段：只选日期的用户，时分秒自动补当前时刻。
+  // 注意这里用 nowHms()（带秒），配合 stampOfPickedDate 让「点保存」的秒级时刻真正落库。
+  function refreshAutoTime(){ var e=$('l-time'); if(e) e.value = nowHms(); return e ? e.value : nowHms(); }
 
   function addFlow(){
     if(!db){ setSync('offline'); showToast('当前环境未挂载线上数据库，无法保存','err'); return; }
@@ -4736,7 +5154,9 @@
         if(res && res.id){ return reloadRange(); }
         return reloadRange();
       })
-      .then(function(){ ledgerEditId=null; resetLedgerForm(); cacheClear('ledger'); setSync('synced'); showToast(kind===KIND_INCOME? '收入已记录' : '已保存并换算工时'); refreshAll(); })
+      .then(function(){ ledgerEditId=null; resetLedgerForm(); cacheClear('ledger'); setSync('synced'); showToast(kind===KIND_INCOME? '收入已记录' : '已保存并换算工时'); refreshAll();
+        // 只在支出且是「今天」的记录上做超额判断 —— 补记历史日期不该弹今天的额度提醒
+        if(kind===KIND_EXPENSE && String(date).slice(0,10)===todayStr()) maybeWarnBudget(); })
       .catch(function(e){ console.error('[addFlow]', e); setSync('error'); showToast('保存失败，请重试','err'); });
   }
   function editFlow(r){
@@ -4745,7 +5165,9 @@
     setKind('l', kindOf(r));
     var stamp=normalizeStamp(r['日期']);
     setVal('l-date', stamp.slice(0,10));
-    setVal('l-time', /^\d{2}:\d{2}$/.test(stamp.slice(11,16)) ? stamp.slice(11,16) : nowHm());
+    // 回填精确到秒；老数据（只到分）自动补 :00，不会因为格式差异丢时间
+    var hm = stamp.slice(11,19);
+    setVal('l-time', /^\d{2}:\d{2}:\d{2}$/.test(hm) ? hm : (/^\d{2}:\d{2}$/.test(hm.slice(0,5)) ? hm.slice(0,5)+':00' : nowHms()));
     setVal('l-amt', r['金额']);
     // 分类匹配（支出取「分类」，收入取「收入来源」）
     var want=catOf(r);
@@ -4804,7 +5226,9 @@
     setSync('syncing');
     db.addRecord({databaseId:flowDbOf(curMonth()), properties:flowProps(nowStamp(), amt, cat, note, kind)})
       .then(function(){ return reloadRange(); })
-      .then(function(){ setSync('synced'); showToast(kind===KIND_INCOME? '收入已记录' : '已保存并换算工时'); $('q-amt').value=''; $('q-note').value=''; refreshAll(); })
+      .then(function(){ setSync('synced'); showToast(kind===KIND_INCOME? '收入已记录' : '已保存并换算工时'); $('q-amt').value=''; $('q-note').value=''; refreshAll();
+        // 快速记账的时间就是「现在」→ 必然算在今天，直接做超额判断
+        if(kind===KIND_EXPENSE) maybeWarnBudget(); })
       .catch(function(e){ console.error('[quickAdd]', e); setSync('error'); showToast('保存失败，请重试','err'); });
   }
 
@@ -4881,11 +5305,19 @@
     // 驾驶舱「数据备份与迁移」卡片
     var dImp=$('d-import');
     if(dImp) dImp.onclick=function(){ onImportClick(dImp); };
+    // 驾驶舱内「切换用户」：弹确认窗（取消 / 确定），确定后清空全部数据并回登录门。
+    var dSw=$('d-switch-user');
+    if(dSw) dSw.onclick=function(){ openSwitchConfirm(); };
     // 登录门里的「导入 Excel 备份」（首次进入时先导入数据，再选成员）
     var gImp=$('gateImpBtn');
     if(gImp) gImp.onclick=function(){ onImportClick(gImp, {gate:true}); };
     var dExp=$('d-export-all');
     if(dExp) dExp.onclick=function(){ exportAllData(dExp); };
+    // 驾驶舱「今日消费额度」：保存额度（写进设置表的两个字段）
+    var bSave=$('dBudgetSave');
+    if(bSave) bSave.onclick=function(){ saveBudgetLimit(); };
+    var bInp=$('dBudgetInput');
+    if(bInp) bInp.onkeydown=function(e){ if(e.key==='Enter'){ e.preventDefault(); saveBudgetLimit(); } };
     // 侧栏「数据备份与迁移」→ 回驾驶舱并定位到该卡片
     var navData=$('navData');
     if(navData) navData.onclick=function(){
@@ -4978,6 +5410,10 @@
     $('whoami').onclick=function(){
       loadUsers().then(function(){ state.pendingAcct=null; openGate(); });
     };
+    // 「切换用户」：侧栏按钮与驾驶舱数据卡按钮共用 openSwitchConfirm() 确认弹窗。
+    // 确定后会清空全部数据（wipeAllData）再 switchUserOut 回登录门，弹窗里有醒目提示。
+    var swUser=$('navSwitchUser');
+    if(swUser) swUser.onclick=function(){ openSwitchConfirm(); };
     $('btnLogin').onclick=function(){ doLogin(); };
     $('uaddBtn').onclick=function(){
       var w=$('unewWrap'); if(!w) return;
@@ -5052,6 +5488,19 @@
       renderSkeleton(); setSync('synced'); openGate();
     });
   }
+  // 调试句柄：整个页面跑在一个 IIFE 里，外部（控制台 / 自动化测试）默认取不到 state 与内部函数。
+  // 这里只暴露一个**只读诊断**入口，方便排查「导入成功但看不到数据」这类问题。
+  // 注意不要在这里塞写操作，避免绕过正常的交互路径。
+  window.__ledgerDebug = {
+    get state(){ return state; },
+    get isLocal(){ return DB_IS_LOCAL; },
+    get dbName(){ return (typeof LOCAL_DB_NAME !== 'undefined') ? LOCAL_DB_NAME : null; },
+    switchToUser: switchToUser,
+    switchUserOut: switchUserOut,
+    openGate: openGate,
+    closeGate: closeGate,
+    curMonth: curMonth,
+  };
   if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', init); }
   else { init(); }
 })();
