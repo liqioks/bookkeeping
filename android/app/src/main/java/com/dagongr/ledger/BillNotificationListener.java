@@ -62,12 +62,14 @@ public class BillNotificationListener extends NotificationListenerService {
         super.onListenerConnected();
         BillEventBus.init(getApplicationContext());
         BillEventBus.setConnected(true);
+        ServiceStateHolder.onConnected(getApplicationContext());
     }
 
     @Override
     public void onListenerDisconnected() {
         super.onListenerDisconnected();
         BillEventBus.setConnected(false);
+        ServiceStateHolder.onDisconnected();
     }
 
     @Override

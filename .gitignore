@@ -15,6 +15,14 @@ keystore/
 *.jks
 *.keystore
 keystore.properties
+keystore.zip
+
+# WorkBuddy 本地状态目录（记忆 / 浏览器探测缓存等，均属本机，不进仓库）
+.workbuddy/
+
+# Python
+__pycache__/
+*.pyc
 
 # 本地配置
 local.properties

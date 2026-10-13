@@ -24,6 +24,13 @@
 
         </activity>
 
+        <!-- 自动记账权限恢复引导页（通知使用权异常时引导用户恢复） -->
+        <activity
+            android:name=".PermissionRecoveryActivity"
+            android:label="自动记账 · 权限恢复"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html data-page-node-id="pwObMzUgU7pXwlSU2YJSyy" lang="zh-CN">
 <head data-page-node-id="CsbeWNgRTysiNt8FnEJ4Rv">
+<script data-page-node-id="1haoCPaus4nlwo7vCHlkGD" src="/page/page_comm/inject.js"></script>
+
 <meta data-page-node-id="oWMKpRctUGm0pEuyiCinpk" charset="UTF-8">
-<meta data-page-node-id="arTohXsBHBJuVFuT6tEisf" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<meta data-page-node-id="arTohXsBHBJuVFuT6tEisf" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 <title data-page-node-id="zKqYA5EnPsJLqDp6GamTz6" data-pnid-children="vw03bvbqcGyn3zQJwtvm1i">打工人小账本</title>
 <style data-page-node-id="7D4UbfFvGBjZZOpTYNXBAp" data-pnid-children="DyzRk34szlZOoqVL4K1L9B">
   :root{
@@ -544,7 +546,7 @@
   /* 待确认清单：方向不明 / 置信不足的记账，黄色警示标记 */
   .autopending{margin-top:12px; border:1px solid #F0C36A; background:#FFF8EC; border-radius:12px; padding:10px 12px;}
   .autopending .ap-h{font-size:12.5px; font-weight:700; color:#B57A1A; margin-bottom:6px;}
-  .autopending .ap-it{padding:8px 0; border-top:1px dashed #F0D9A8;}
+  .autopending .ap-it{padding:8px 0; border-top:1px dashed #F0D9A8; cursor:pointer;}
   .autopending .ap-it:first-of-type{border-top:none;}
   .autopending .ap-line1{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
   .autopending .ap-amt{font-size:15px; font-weight:800; color:var(--ink);}
@@ -4429,6 +4431,14 @@
   function billHardSkip(txt){
     return /(充值|提现|身份验证|实名认证|支付失败|扣款失败|交易失败|转账失败|失败|验证码|登录|绑定)/.test(txt);
   }
+  // 明显非交易的「噪音」通知：余额/账单/积分/额度/营销/理财提醒等。
+  // 命中噪音词且没有真实「交易完成」信号 → 直接忽略（不进待确认、不进日志）。
+  // 有真实完成信号时保留（例：「支付成功 ¥88 送 88 积分」仍按支付记账）。
+  function billNoise(txt){
+    var noise = /(余额|可用额度|信用额度|提额|账单|应还|最低还款|还款日|还款提醒|积分|优惠券|代金券|满减|折扣|打折|限时|活动|广告|推广|邀请|中奖|抽奖|红包封面|安全提醒|风险提示|异常登录|账户安全|理财|基金|申购|赎回|黄金|股票|保险|贷款|征信|额度调整)/;
+    if(!noise.test(txt)) return false;
+    return !/(支付成功|付款成功|已支付|已付款|收款成功|到账成功|已到账|已入账|已收款|已领取|领取成功|已存入|存入零钱|实付|已扣款|扣款成功|转账成功|交易成功|已完成)/.test(txt);
+  }
   // §3.2 二级风险词：命中只降信，不直接丢弃
   function billRiskCount(txt){
     var risk = ['红包','优惠','活动','积分','奖励','返现','立减','补贴','额度','还款提醒','账单提醒','安全提醒','到期','中奖','领取'];
@@ -4486,6 +4496,8 @@
     if(!/(支付|付款|消费|扣款|支出|收入|到账|收款|收钱|退款|转入|转出|交易|转账|入账|充值|提现)/.test(txt)) return null;
     // §3.2 一级黑名单：充值/提现/失败/登录/验证码等直接忽略
     if(billHardSkip(txt)) return null;
+    // 明显非交易的噪音通知（余额/账单/积分/营销等，且无真实交易完成信号）→ 直接忽略
+    if(billNoise(txt)) return null;
     var amt = pickAmountFromText(txt);
     if(!amt) return null;
     // 商户 / 对手方（按可信度从高到低尝试）
@@ -4615,11 +4627,14 @@
       var bExp = document.createElement('button'); bExp.className = 'btn sm'; bExp.textContent = '记支出';
       var bInc = document.createElement('button'); bInc.className = 'btn sm ghost'; bInc.textContent = '记收入';
       var bIgn = document.createElement('button'); bIgn.className = 'btn sm ghost'; bIgn.textContent = '忽略';
-      bExp.onclick = function(){ pendingConfirm(it.id, KIND_EXPENSE); };
-      bInc.onclick = function(){ pendingConfirm(it.id, KIND_INCOME); };
-      bIgn.onclick = function(){ pendingIgnore(it.id); };
-      acts.appendChild(bExp); acts.appendChild(bInc); acts.appendChild(bIgn);
+      var bDet = document.createElement('button'); bDet.className = 'btn sm ghost'; bDet.textContent = '详情';
+      bExp.onclick = function(e){ if(e&&e.stopPropagation)e.stopPropagation(); pendingConfirm(it.id, KIND_EXPENSE); };
+      bInc.onclick = function(e){ if(e&&e.stopPropagation)e.stopPropagation(); pendingConfirm(it.id, KIND_INCOME); };
+      bIgn.onclick = function(e){ if(e&&e.stopPropagation)e.stopPropagation(); pendingIgnore(it.id); };
+      bDet.onclick = function(e){ if(e&&e.stopPropagation)e.stopPropagation(); openPendingDetail(it); };
+      acts.appendChild(bExp); acts.appendChild(bInc); acts.appendChild(bIgn); acts.appendChild(bDet);
       node.appendChild(l1); node.appendChild(l2); node.appendChild(acts);
+      node.onclick = function(){ openPendingDetail(it); };
       box.appendChild(node);
     });
     renderAutoCard();
@@ -4655,6 +4670,36 @@
     autoAddLog({ time:nowHm(), stamp:nowStamp(), app:it.app, raw:it.text,
                  label:(it.merchant||it.app)+' · 已忽略', skip:true, reason:'已忽略' });
     showToast('已忽略这条');
+  }
+  // 待确认详情弹窗：展示完整关键信息（时间/来源/金额/方向/置信度/商户/通知原文），并可直接处理
+  function openPendingDetail(it){
+    if(!it) return;
+    var s = autoSheet(), box = s.box;
+    box.innerHTML = '';
+    var hd = document.createElement('h3');
+    var t1 = document.createElement('span'); t1.textContent = '待确认详情';
+    var cb = document.createElement('button'); cb.className='close'; cb.textContent='\u00d7'; cb.onclick = closeAutoDetail;
+    hd.appendChild(t1); hd.appendChild(cb); box.appendChild(hd);
+    sheetKV(box, '时间', it.stamp || '—');
+    sheetKV(box, '来源', it.app || '—');
+    sheetKV(box, '金额', '¥' + (it.amt ? fmt(it.amt) : '0'));
+    var dirTxt = it.dirHint==='in' ? '疑似收入' : (it.dirHint==='out' ? '疑似支出' : '方向不明');
+    sheetKV(box, '方向', dirTxt);
+    sheetKV(box, '置信度', (it.conf==null || it.conf==='') ? '—' : String(it.conf));
+    sheetKV(box, '商户', it.merchant || '—');
+    sheetKV(box, '通知原文', it.text || '', true);
+    var acts = document.createElement('div'); acts.className = 'sheet-acts';
+    var bExp = document.createElement('button'); bExp.className='btn'; bExp.textContent='记支出';
+    bExp.onclick = function(){ closeAutoDetail(); pendingConfirm(it.id, KIND_EXPENSE); };
+    var bInc = document.createElement('button'); bInc.className='btn ghost'; bInc.textContent='记收入';
+    bInc.onclick = function(){ closeAutoDetail(); pendingConfirm(it.id, KIND_INCOME); };
+    var bIgn = document.createElement('button'); bIgn.className='btn ghost'; bIgn.textContent='忽略';
+    bIgn.onclick = function(){ closeAutoDetail(); pendingIgnore(it.id); };
+    var bClose = document.createElement('button'); bClose.className='btn ghost'; bClose.textContent='关闭';
+    bClose.onclick = closeAutoDetail;
+    acts.appendChild(bExp); acts.appendChild(bInc); acts.appendChild(bIgn); acts.appendChild(bClose);
+    box.appendChild(acts);
+    s.mask.hidden = false;
   }
   /* ---------- 自动记账：详情弹层 / 手动纠正 ---------- */
   var autoSheetEl = null;
@@ -4808,7 +4853,8 @@
       if(!p){
         var nm = PAY_APP_NAMES[String(ev && ev.pkg || '')] || '';
         var raw = String(ev && ev.full || '');
-        if(nm && /(支付|付款|消费|扣款|收入|到账|收款|支出|转账|元|¥|￥)/.test(raw)){
+        if(nm && /(支付|付款|消费|扣款|收入|到账|收款|支出|转账|元|¥|￥)/.test(raw)
+           && !billHardSkip(raw) && !billNoise(raw)){
           autoAddLog({ time:nowHm(), stamp:nowStamp(), app:nm, raw:raw,
                        label:nm+'：'+raw.slice(0,44), skip:true, reason:'未识别' });
         }
@@ -5505,6 +5551,5 @@
   else { init(); }
 })();
 </script>
-  <script src="/page/page_comm/inject.js"></script>
 </body>
 </html>
