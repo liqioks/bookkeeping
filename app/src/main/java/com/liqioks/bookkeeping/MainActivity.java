@@ -258,8 +258,13 @@ public final class MainActivity extends Activity {
             try {
                 long cents = new BigDecimal(rawAmount).setScale(2, RoundingMode.HALF_UP)
                         .movePointRight(2).longValueExact();
-                if (cents <= 0 || category.isEmpty()) {
-                    throw new NumberFormatException();
+                if (cents <= 0) {
+                    amountInput.setError("请输入大于 0 的有效金额");
+                    return;
+                }
+                if (category.isEmpty()) {
+                    categoryInput.setError("请填写分类");
+                    return;
                 }
                 String type = incomeOption.isChecked() ? "收入" : "支出";
                 database.addEntry(cents, type, category, noteInput.getText().toString().trim());
@@ -267,9 +272,6 @@ public final class MainActivity extends Activity {
                 dialog.dismiss();
             } catch (NumberFormatException | ArithmeticException exception) {
                 amountInput.setError("请输入大于 0 的有效金额");
-                if (category.isEmpty()) {
-                    categoryInput.setError("请填写分类");
-                }
             }
         }));
         dialog.show();
