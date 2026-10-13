@@ -13,8 +13,8 @@ KS = KS_DIR / 'dagongr-release.jks'
 PROPS = ROOT / 'android' / 'keystore.properties'
 GRADLE = ROOT / 'android' / 'app' / 'build.gradle'
 ALIAS = 'dagongr'
-VERSION_NAME = '1.0.6'
-VERSION_CODE = 7
+VERSION_NAME = '1.0.7'
+VERSION_CODE = 8
 
 env = dict(os.environ)
 env['JAVA_HOME'] = str(JDK)

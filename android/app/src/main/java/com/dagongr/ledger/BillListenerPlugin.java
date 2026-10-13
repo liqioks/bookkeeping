@@ -55,7 +55,7 @@ public class BillListenerPlugin extends Plugin {
         call.resolve(ret);
     }
 
-    /** 诊断用：授权状态 / 服务是否已连接 / 待补记条数 */
+    /** 诊断用：授权状态 / 权限四态 / 服务是否已连接 / 待补记条数 */
     @PluginMethod
     public void getStatus(PluginCall call) {
         JSObject ret = new JSObject();
@@ -63,6 +63,12 @@ public class BillListenerPlugin extends Plugin {
         ret.put("connected", BillEventBus.isConnected());
         ret.put("queueCount", BillEventBus.queueCount());
         ret.put("lastEventAt", BillEventBus.getLastEventAt());
+        try {
+            PermissionState st = PermissionChecker.check(getContext());
+            ret.put("state", st.name());
+        } catch (Throwable ignored) {
+            ret.put("state", PermissionState.UNKNOWN.name());
+        }
         call.resolve(ret);
     }
 
